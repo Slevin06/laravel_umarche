@@ -9,6 +9,6 @@
     component test 1
 
     {{-- 属性でコンポーネントを使う --}}
-    <x-tests.card title="属性でタイトル表示" content="属性でコンテンツ表示"/>
+    <x-tests.card title="属性でタイトル表示" content="属性でコンテンツ表示" :message=$message /> {{-- コントローラーからの変数受け渡し --}}
 
 </x-tests.app>

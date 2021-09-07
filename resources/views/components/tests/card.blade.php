@@ -1,3 +1,10 @@
+{{--初期値設定--}}
+@props([
+'title' => 'propsで設定したtitle初期値です',
+'message' => 'propsで設定したmessage初期値です',
+'content' => 'propsで設定したcontent初期値です',
+]);
+
 <div class="border-2 shadow-md w-1/4 p-2 mb-10">
 
     {{-- 属性のコンポーネント --}}

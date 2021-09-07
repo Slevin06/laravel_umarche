@@ -9,8 +9,13 @@
     component test 1
 
     {{-- 属性でコンポーネントを使う --}}
-    <x-tests.card title="属性でタイトル表示" content="属性でコンテンツ表示" :message=$message /> {{-- コントローラーからの変数受け渡し --}}
+    <x-tests.card title="属性でタイトル表示" content="属性でコンテンツ表示"
+                  :message=$message/> {{-- コントローラーからの変数受け渡し --}}
 
-    <x-tests.card title="タイトル2" />
+        {{-- propsで初期値を扱う --}}
+        <x-tests.card title="タイトル2"/>
+
+        {{-- 属性バッグでcssをマージする --}}
+        <x-tests.card title="CSSを変更したい" class="bg-red-600"/>
 
 </x-tests.app>

@@ -19,6 +19,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/dashboard';
 
+    //ここで認証対象を増やすごとに、認証OK時のリダイレクト先も指定できる。
+    public const OWNER_HOME = '/owner/dashboard';
+    public const ADMIN_HOME = '/admin/dashboard';
+
     /**
      * The controller namespace for the application.
      *
@@ -30,6 +34,12 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, etc.
+     *
+     * api.phpなのか、
+     * web.phpなのか、
+     * owner.php, admin.phpなのか、、
+     * 最初にどのルーティングファイルのルーティングを読み込んでいくのか
+     * ここで定義できる。
      *
      * @return void
      */
@@ -43,9 +53,28 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+//            Route::middleware('web')
+//                ->namespace($this->namespace)
+//                ->group(base_path('routes/web.php'));
+
+            //↓user, owner, adminそれぞれに用意する。
+            Route::prefix('/')
+                ->as('user.')   // asでルートに名前付けできる。
+                ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('owner')
+                ->as('owner.')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/owner.php'));
+
+            Route::prefix('admin')
+                ->as('admin.')
+                ->middleware('web')
+                ->namespace($this->namespace)
+                ->group(base_path('routes/admin.php'));
         });
     }
 

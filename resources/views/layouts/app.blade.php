@@ -18,7 +18,15 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+
+            {{--既存だと３方向のマルチログインに対応できていないため増やす。--}}
+            @if(auth('admin')->user())
+                @include('layouts.admin-navigation')
+            @elseif(auth('owners')->user())
+                @include('layouts.owner-navigation')
+            @else
+                @include('layouts.user-navigation')
+            @endif
 
             <!-- Page Heading -->
             <header class="bg-white shadow">

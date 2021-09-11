@@ -1,8 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+/**
+ * +Owner
+ */
+namespace App\Http\Controllers\Owner\Auth;
 
+/**
+ * +Owner
+ */
 use App\Http\Controllers\Controller;
+use App\Models\Owner;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -20,7 +27,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('owner.auth.register');
     }
 
     /**
@@ -33,13 +40,23 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        /**
+         * unique:users
+         * でusersテーブルを見ているので
+         * change
+         * owners
+         */
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:owners',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        /**
+         * change
+         * User->Owner
+         */
+        $user = Owner::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -49,6 +66,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        /**
+         * +OWNER
+         */
+        return redirect(RouteServiceProvider::OWNER_HOME);
     }
 }

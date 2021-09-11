@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+/**
+ * +Owner
+ */
+namespace App\Http\Controllers\Owner\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -17,14 +20,20 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request)
     {
+        /**
+         * +OWNER
+         */
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+            return redirect()->intended(RouteServiceProvider::OWNER_HOME.'?verified=1');
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
+        /**
+         * +OWNER
+         */
+        return redirect()->intended(RouteServiceProvider::OWNER_HOME.'?verified=1');
     }
 }

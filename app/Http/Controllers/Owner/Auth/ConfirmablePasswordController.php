@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+/**
+ * +Owner
+ */
+namespace App\Http\Controllers\Owner\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -17,7 +20,10 @@ class ConfirmablePasswordController extends Controller
      */
     public function show()
     {
-        return view('auth.confirm-password');
+        /**
+         * +owner
+         */
+        return view('owner.auth.confirm-password');
     }
 
     /**
@@ -28,7 +34,11 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::guard('web')->validate([
+        /**
+         * change
+         * web->owners
+         */
+        if (! Auth::guard('owners')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
         ])) {
@@ -39,6 +49,9 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        /**
+         * +OWNER
+         */
+        return redirect()->intended(RouteServiceProvider::OWNER_HOME);
     }
 }

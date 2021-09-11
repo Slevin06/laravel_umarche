@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+/**
+ * +Owner
+ */
+namespace App\Http\Controllers\Owner\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
@@ -17,7 +20,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        /**
+         * +owner
+         */
+        return view('owner.auth.login');
     }
 
     /**
@@ -32,7 +38,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        /**
+         * +OWNER
+         */
+        return redirect()->intended(RouteServiceProvider::OWNER_HOME);
     }
 
     /**
@@ -43,12 +52,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        /**
+         * change
+         * web->owners
+         */
+        Auth::guard('owners')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/owner');
     }
 }

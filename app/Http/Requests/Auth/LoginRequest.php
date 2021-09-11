@@ -45,7 +45,38 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // attempt()で、値を検証してくれる。
+//        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+//            RateLimiter::hit($this->throttleKey());
+//
+//            throw ValidationException::withMessages([
+//                'email' => __('auth.failed'),
+//            ]);
+//        }
+
+
+        /**
+         * カスタム。
+         * やりたいこと：
+         * guardごとに認証処理をつくりたい。
+         */
+
+        /**
+         * guardごとにAuth::を使いたいので、
+         * まずはguardを取得：設定。
+         */
+        if ($this->routeIs('owner.*')) {
+            $guard = 'owners';
+        } elseif ($this->routeIs('admin.*')) {
+            $guard = 'admin';
+        } else {
+            $guard = 'users';
+        }
+
+        /**
+         * Auth::attempt -> Auth::guard($guard)->attempt
+         */
+        if (! Auth::guard($guard)->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

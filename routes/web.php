@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComponentTestController;
 use App\Http\Controllers\LifeCycleTestController;
+use App\Http\Controllers\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/**
+ * social login test.
+ * @model: User
+ * @url: /social-login
+ */
+Route::get('/social-login', [SocialLoginController::class, 'index']);
+
 
 Route::get('/', function () {
     return view('user.welcome');
@@ -29,4 +38,4 @@ Route::get('/servicecontainer-test', [LifeCycleTestController::class, 'showServi
 Route::get('/serviceprovider-test', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

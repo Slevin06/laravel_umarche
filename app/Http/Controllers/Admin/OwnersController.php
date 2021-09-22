@@ -30,32 +30,36 @@ class OwnersController extends Controller
     public function index()
     {
         // Carbonを使ってみる
-        $dateNow = Carbon::now();
-        $dateParse = Carbon::parse(now());
-        echo $dateNow . "\n";
-        echo $dateParse;
+//        $dateNow = Carbon::now();
+//        $dateParse = Carbon::parse(now());
+//        echo $dateNow . "\n";
+//        echo $dateParse;
 
         // データを扱う方法のバリエーションテスト
-        $eloquentAll = Owner::all();
-        $querybuilderGet = DB::table('owners')->select('name', 'created_at')->get();
+//        $eloquentAll = Owner::all();
+//        $querybuilderGet = DB::table('owners')->select('name', 'created_at')->get();
 //        $querybuilderFirst = DB::table('owners')->select('name')->first();
 //        $collectionTest = collect([
 //            'name' => 'test',
 //        ]);
 //        dd($eloquentAll, $querybuilderGet, $querybuilderFirst, $collectionTest);
 
-        return view('admin.owners.index',
-            compact('eloquentAll', 'querybuilderGet'));
+        $owners = Owner::select('name', 'email', 'created_at')->get();
+
+        return view(
+            'admin.owners.index',
+            compact('owners')
+        );
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
-        //
+        return view('admin.owners.create');
     }
 
     /**
@@ -64,7 +68,7 @@ class OwnersController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
         //
     }

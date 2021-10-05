@@ -26,6 +26,8 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 mx-auto">
 
+                            <x-flash-message status="info" />
+
                             <div
                                 class="lg:w-2/3 w-full mx-auto overflow-auto clear-both mb-4">
                                 <button

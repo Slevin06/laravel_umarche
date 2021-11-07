@@ -48,7 +48,7 @@ class OwnersController extends Controller
 //        ]);
 //        dd($eloquentAll, $querybuilderGet, $querybuilderFirst, $collectionTest);
 
-        $owners = Owner::select('name', 'email', 'created_at')->get();
+        $owners = Owner::select('id', 'name', 'email', 'created_at')->get();
 
         return view(
             'admin.owners.index',
@@ -113,11 +113,14 @@ class OwnersController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Response
+     * @return Application|Factory|View|Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+
+//        dd($owner);
+        return view('admin.owners.edit', compact('owner'));
     }
 
     /**
@@ -125,11 +128,18 @@ class OwnersController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $owner = Owner::findOrFail($id);
+        $owner->name = $request->name;
+        $owner->email = $request->email;
+        $owner->password = Hash::make($request->password);
+
+        return redirect()
+            ->route('admin.owners.index')
+            ->with('message', 'オーナー情報を更新しました');
     }
 
     /**

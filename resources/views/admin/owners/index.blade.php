@@ -26,7 +26,7 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 mx-auto">
 
-                            <x-flash-message status="info" />
+                            <x-flash-message status="info"/>
 
                             <div
                                 class="lg:w-2/3 w-full mx-auto overflow-auto clear-both mb-4">
@@ -52,7 +52,7 @@
                                         <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                                             created_at
                                         </th>
-                                        <th class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
+                                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -61,8 +61,12 @@
                                             <td class="px-4 py-3">{{ $owner->name }}</td>
                                             <td class="px-4 py-3">{{ $owner->email }}</td>
                                             <td class="px-4 py-3">{{ $owner->created_at }}</td>
-                                            <td class="w-10 text-center">
-                                                <input name="plan" type="radio">
+                                            <td class="px-4 py-3">
+                                                <button
+                                                    onclick="location.href='{{ route('admin.owners.edit', ['owner' => $owner->id]) }}'"
+                                                    class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
+                                                    Update
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>

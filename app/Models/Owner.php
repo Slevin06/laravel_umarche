@@ -14,8 +14,9 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * Class Owner
  * @package App\Models
- * @method static select(string $string, string $string1, string $string2)
+ * @method static select(string $string, string $string1, string $string2, string $string3)
  * @method static create(array $array)
+ * @method static findOrFail(int $id)
  */
 class Owner extends Authenticatable
 {
